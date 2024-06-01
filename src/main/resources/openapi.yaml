@@ -1,0 +1,417 @@
+openapi: 3.0.0
+info:
+  title: MS BS Client Management Service V1
+  version: 1.0.0
+servers:
+  - url: /
+    description: Servicio de gestión de clientes
+    variables:
+      host:
+        default: localhost
+        description: Host de la aplicación
+      port:
+        default: 8080
+        description: Puerto de la aplicación
+paths:
+  /clientes:
+    get:
+      operationId: listClients
+      summary: Listar clientes
+      tags:
+        - Client
+      description: |-
+        ### Acerca de la funcionalidad expuesta
+        Permite listar los clientes registrados.
+      responses:
+        '200':
+          description: Operación exitosa.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClientResponse'
+        '204':
+          description: Sin datos para retornar.
+        '400':
+          description: Los datos proporcionados no son válidos.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        '404':
+          description: Recurso no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        '500':
+          description: Ocurrió un error inesperado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        '503':
+          description: Servicio no se encuentra disponible.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+    post:
+      operationId: createClient
+      summary: Crear un nuevo cliente
+      tags:
+        - Client
+      description: |-
+        ### Acerca de la funcionalidad expuesta
+        Permite registrar un nuevo cliente.
+      requestBody:
+        description: Entrada del servicio.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateClientRequest'
+      responses:
+        '201':
+          description: Cliente creado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientResponse'
+        '204':
+          description: Sin datos para retornar.
+        '400':
+          description: Los datos proporcionados no son válidos.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        '404':
+          description: Recurso no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        '500':
+          description: Ocurrió un error inesperado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        '503':
+          description: Servicio no se encuentra disponible.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+    put:
+      operationId: replaceClient
+      summary: Actualizar cliente
+      tags:
+        - Client
+      description: |-
+        ### Acerca de la funcionalidad expuesta
+        Permite actualizar un cliente.
+      requestBody:
+        description: Entrada del servicio.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReplaceClientRequest'
+      responses:
+        '200':
+          description: Cliente actualizado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientResponse'
+        '400':
+          description: Los datos proporcionados no son válidos.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        '404':
+          description: Recurso no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        '500':
+          description: Ocurrió un error inesperado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        '503':
+          description: Servicio no se encuentra disponible.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+    patch:
+      operationId: updateClient
+      summary: Actualizar cliente de formar parcial
+      tags:
+        - Client
+      description: |-
+        ### Acerca de la funcionalidad expuesta
+        Permite actualizar de forma parcial un cliente.
+      requestBody:
+        description: Entrada del servicio.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateClientRequest'
+      responses:
+        '200':
+          description: Cliente actualizado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientResponse'
+        '400':
+          description: Los datos proporcionados no son válidos.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        '404':
+          description: Recurso no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        '500':
+          description: Ocurrió un error inesperado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        '503':
+          description: Servicio no se encuentra disponible.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+  /clientes/{id}:
+    get:
+      operationId: getClient
+      summary: Consultar un cliente
+      tags:
+        - Client
+      description: |-
+        ### Acerca de la funcionalidad expuesta
+        Permite obtener un cliente por su identificador.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Operación exitosa.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientResponse'
+        '204':
+          description: Sin datos para retornar.
+        '400':
+          description: Los datos proporcionados no son válidos.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        '404':
+          description: Recurso no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        '500':
+          description: Ocurrió un error inesperado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        '503':
+          description: Servicio no se encuentra disponible.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+    delete:
+      operationId: deleteClient
+      summary: Eliminar cliente por su identificador
+      tags:
+        - Client
+      description: |-
+        ### Acerca de la funcionalidad expuesta
+        Permite eliminar un cliente por su identificador.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Cliente eliminado.
+        '400':
+          description: Los datos proporcionados no son válidos.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        '404':
+          description: Recurso no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        '500':
+          description: Ocurrió un error inesperado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        '503':
+          description: Servicio no se encuentra disponible.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+components:
+  schemas:
+    CreateClientRequest:
+      required:
+        - clientId
+        - name
+        - gender
+        - age
+        - personalId
+        - address
+        - phone
+        - password
+        - status
+      allOf:
+        - $ref: '#/components/schemas/ClientRequest'
+    ReplaceClientRequest:
+      required:
+        - clientId
+        - name
+        - gender
+        - age
+        - personalId
+        - address
+        - phone
+        - password
+        - status
+      allOf:
+        - $ref: '#/components/schemas/ClientRequest'
+    UpdateClientRequest:
+      required:
+        - clientId
+      allOf:
+        - $ref: '#/components/schemas/ClientRequest'
+    ClientResponse:
+      title: ClientResponse
+      type: object
+      properties:
+        clientId:
+          type: integer
+          description: Identificador del cliente
+          example: 1
+        name:
+          type: string
+          description: Nombre
+          example: George Castillo
+        gender:
+          type: string
+          description: Género (M = Masculino, F = Femenino)
+          pattern: ^(M|F)$
+          example: M
+        age:
+          type: integer
+          description: Edad
+          example: 1
+        personalId:
+          type: integer
+          description: Documento identificador
+          example: 1
+        address:
+          type: string
+          description: Dirección
+          example: Av. Javier Prado 777
+        phone:
+          type: string
+          description: Telefono
+          pattern: ^\\+(?:[0-9] ?){6,14}[0-9]$
+          example: +51941131257
+        password:
+          type: string
+          description: Contraseña numérica de 6 dígitos
+          pattern: ^[0-9]{6}$
+          example: 123456
+        status:
+          type: string
+          description: Estado (A = Activo, I = Inactivo)
+          pattern: ^(A|I)$
+          example: A
+    ApiException:
+      title: ApiException
+      type: object
+      properties:
+        code:
+          type: string
+          description: Codigo de error de sistema
+          example: CLI001
+        description:
+          type: string
+          description: Descripción del error de sistema
+          example: Recurso no encontrado
+    ClientRequest:
+      type: object
+      properties:
+        clientId:
+          type: integer
+          description: Identificador del cliente
+          example: 1
+        name:
+          type: string
+          description: Nombre
+          example: George Castillo
+        gender:
+          type: string
+          description: Género
+          pattern: ^(M|F)$
+          example: M
+        age:
+          type: integer
+          description: Edad
+          example: 1
+        personalId:
+          type: integer
+          description: Documento identificador
+          example: 1
+        address:
+          type: string
+          description: Dirección
+          example: Av. Javier Prado 777
+        phone:
+          type: string
+          description: Telefono
+          pattern: ^\\+(?:[0-9] ?){6,14}[0-9]$
+          example: +51941131257
+        password:
+          type: string
+          description: Contraseña numérica de 6 dígitos
+          pattern: ^[0-9]{6}$
+          example: 123456
+        status:
+          type: string
+          description: Estado (Activo, Inactivo)
+          pattern: ^(A|I)$
+          example: A
