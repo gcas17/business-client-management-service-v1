@@ -10,7 +10,7 @@ servers:
         default: localhost
         description: Host de la aplicación
       port:
-        default: 8080
+        default: '8080'
         description: Puerto de la aplicación
 paths:
   /clientes:
@@ -209,6 +209,7 @@ paths:
           required: true
           schema:
             type: integer
+            format: int64
       responses:
         '200':
           description: Operación exitosa.
@@ -256,6 +257,7 @@ paths:
           required: true
           schema:
             type: integer
+            format: int64
       responses:
         '200':
           description: Cliente eliminado.
@@ -287,11 +289,10 @@ components:
   schemas:
     CreateClientRequest:
       required:
-        - clientId
         - name
         - gender
         - age
-        - personalId
+        - identification
         - address
         - phone
         - password
@@ -300,11 +301,11 @@ components:
         - $ref: '#/components/schemas/ClientRequest'
     ReplaceClientRequest:
       required:
-        - clientId
+        - id
         - name
         - gender
         - age
-        - personalId
+        - identification
         - address
         - phone
         - password
@@ -313,34 +314,22 @@ components:
         - $ref: '#/components/schemas/ClientRequest'
     UpdateClientRequest:
       required:
-        - clientId
+        - id
       allOf:
         - $ref: '#/components/schemas/ClientRequest'
     ClientResponse:
       title: ClientResponse
       type: object
       properties:
-        clientId:
+        id:
           type: integer
-          description: Identificador del cliente
+          format: int64
+          description: Identificador
           example: 1
         name:
           type: string
           description: Nombre
           example: George Castillo
-        gender:
-          type: string
-          description: Género (M = Masculino, F = Femenino)
-          pattern: ^(M|F)$
-          example: M
-        age:
-          type: integer
-          description: Edad
-          example: 1
-        personalId:
-          type: integer
-          description: Documento identificador
-          example: 1
         address:
           type: string
           description: Dirección
@@ -356,18 +345,17 @@ components:
           pattern: ^[0-9]{6}$
           example: 123456
         status:
-          type: string
-          description: Estado (A = Activo, I = Inactivo)
-          pattern: ^(A|I)$
-          example: A
+          type: boolean
+          description: Estado
+          example: true
     ApiException:
       title: ApiException
       type: object
       properties:
         code:
           type: string
-          description: Codigo de error de sistema
-          example: CLI001
+          description: Código de error de sistema
+          example: CLI0001
         description:
           type: string
           description: Descripción del error de sistema
@@ -375,13 +363,14 @@ components:
     ClientRequest:
       type: object
       properties:
-        clientId:
+        id:
           type: integer
+          format: int64
           description: Identificador del cliente
           example: 1
         name:
           type: string
-          description: Nombre
+          description: Nombre del cliente
           example: George Castillo
         gender:
           type: string
@@ -392,10 +381,10 @@ components:
           type: integer
           description: Edad
           example: 1
-        personalId:
-          type: integer
+        identification:
+          type: string
           description: Documento identificador
-          example: 1
+          example: '70291259'
         address:
           type: string
           description: Dirección
@@ -411,7 +400,6 @@ components:
           pattern: ^[0-9]{6}$
           example: 123456
         status:
-          type: string
-          description: Estado (Activo, Inactivo)
-          pattern: ^(A|I)$
-          example: A
+          type: boolean
+          description: Estado
+          example: true
